@@ -1,9 +1,12 @@
 ---
-
-- name: Install Java in RHEL 
-  yum:
-    name: java-1.8.0-openjdk
-    state: latest
+- name: Install Oracle Java 8 JDK
+  block:
+    - get_url: 
+        url: http://download.oracle.com/otn-pub/java/jdk/8u144-b01/090f390dda5b47b9b721c7dfaa008135/jdk-8u144-linux-x64.rpm
+        validate_certs: no
+        headers: 'Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie'	
+        dest: /opt
+    - command: rpm -ivh /opt/jdk-8u144-linux-x64.rpm
   tags: install_java
 
 - name: Downloading rpm for mysql
